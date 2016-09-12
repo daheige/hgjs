@@ -7,12 +7,12 @@ function loadScript(url, callback){
         myjs.onreadystatechange = function(){
             if (myjs.readyState == "loaded" || myjs.readyState == "complete"){
                 myjs.onreadystatechange = null;
-                callback();
+                typeof callback == 'function' && callback(); //建议判断是否是function然后执行回调
             }
         };
     } else { //Others: Firefox, Safari, Chrome, and Opera
         myjs.onload = function(){
-            callback();
+            typeof callback == 'function' && callback();
         };
     }
     myjs.src = url;
