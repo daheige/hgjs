@@ -13,7 +13,8 @@
     <script type="text/jsx">
         //HTML 语言直接写在 JavaScript 语言之中，不加任何引号，这就是 JSX 的语法，它允许 HTML 与 JavaScript 的混写，了解过AngularJs的看到下面的代码一定会感觉很熟悉的
         //react并不依赖jQuery，当然我们可以使用jQuery，但是render里面第二个参数必须使用JavaScript原生的getElementByID方法，不能使用jQuery来选取DOM节点
-        React.render(<h1>hello daheige</h1>,document.getElementById('mybox'));
+        var s ="i like js";
+        React.render(<h1>hello daheige{s}</h1>,document.getElementById('mybox'));
     </script>
 </body>
 </html>
