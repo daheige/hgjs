@@ -1,6 +1,3 @@
-http模块基础知识
-在nodejs中路径不一定和web容器相关联。
-demo；http_demo.js
 var http = require("http"); //导入http模块
 var fs   = require("fs");
 var server = http.createServer(function(req, res) {
@@ -14,8 +11,4 @@ var server = http.createServer(function(req, res) {
 });
 server.listen(1337, "localhost");
 console.log("this demo listen 1337");
-当我们运行node http_demo.js 就可以看到响应的内容。
 
-res.setHeader()可以多次调用设置不同的响应头。
-res.write()也可以多次调用写入内容到响应区。
-res.end()必须是一个字符串string或者buffer缓冲区的内容。
