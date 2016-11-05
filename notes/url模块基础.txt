@@ -1,0 +1,40 @@
+url模块
+querystring.parse(str[, sep[, eq[, options]]])
+querystring模块
+    parse方法，可以接受一个字符串name=zhuwei&age=26,第二个是分割符号
+    查询字符串，不包含?前面的字符串
+
+url.parse 解析地址
+    // The url.parse() method takes a URL string, parses it, and returns a URL object.
+    // 第二个参数是true可以将query查询字符串，转换为对象形式。
+    url.parse() 可以将一个url解析为一个对象  url.parse(req.url)
+    假设请求地址是http://localhost:1337/test?id=1&name=daheige
+    /*
+    解析后的结果：
+        {
+          protocol: null, //协议
+          slashes: null,
+          auth: null,
+          host: null, //主机名
+          port: null, //端口
+          hostname: null,
+          hash: null,
+          search: '?id=1&name=daheige', //查询字符串
+          query: 'id=1&name=daheige',//？后面的字符串
+          pathname: '/test', //请求路径
+          path: '/test?id=1&name=daheige',
+          href: '/test?id=1&name=daheige' }
+     */
+    当我们给url.parse()第二个参数，就不需要用querystring.parse()进行解析。通过url.format()将一个url对象转换为一个url地址。
+
+    url.resolve()对url做部分替换，为URL或 href插入或替换原有的标签
+        url.resolve('/one/two/three', 'four')         // '/one/two/four'
+        url.resolve('http://example.com/', '/one')    // 'http://example.com/one'
+        url.resolve('http://example.com/one', '/two') // 'http://example.com/two'
+
+
+    demo1:解析url地址为url对象   node url_test.js
+    demo2:表单请求，解析url地址和参数(先运行node do_form.js 然后在浏览器中运行form_demo.html文件，提交表单请求，就可以看到请求的字段被解析)
+
+
+
