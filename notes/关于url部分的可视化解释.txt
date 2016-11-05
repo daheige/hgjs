@@ -1,0 +1,42 @@
+nodejs中关于url的解释
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                    href                                     │
+├──────────┬┬───────────┬─────────────────┬───────────────────────────┬───────┤
+│ protocol ││   auth    │      host       │           path            │ hash  │
+│          ││           ├──────────┬──────┼──────────┬────────────────┤       │
+│          ││           │ hostname │ port │ pathname │     search     │       │
+│          ││           │          │      │          ├─┬──────────────┤       │
+│          ││           │          │      │          │ │    query     │       │
+"  http:   // user:pass @ host.com : 8080   /p/a/t/h  ?  query=string   #hash "
+│          ││           │          │      │          │ │              │       │
+└──────────┴┴───────────┴──────────┴──────┴──────────┴─┴──────────────┴───────┘
+protocol:The protocol property identifies the URL's lower-cased protocol scheme.
+
+For example: 'http:
+
+auth:The auth property is the username and password portion of the URL, also referred to as "userinfo". This string subset follows the protocol and double slashes (if present) and precedes the host component, delimited by an ASCII "at sign" (@). The format of the string is {username}[:{password}], with the [:{password}] portion being optional.
+For example: 'user:pass'
+
+host:The host property is the full lower-cased host portion of the URL, including the port if specified.
+For example: 'host.com:8080'
+
+hostname:The hostname property is the lower-cased host name portion of the host component without the port included.
+
+For example: 'host.com'
+port: The port property is the numeric port portion of the host component.
+For example: '8080'
+
+pathname:The pathname property consists of the entire path section of the URL. This is everything following the host (including the port) and before the start of the query or hash components, delimited by either the ASCII question mark (?) or hash (#) characters.
+
+For example '/p/a/t/h'
+
+serach:The search property consists of the entire "query string" portion of the URL, including the leading ASCII question mark (?) character.
+For example: '?query=string'
+No decoding of the query string is performed.
+
+query:The query property is either the "params" portion of the query string ( everything except the leading ASCII question mark (?), or an object returned by the querystring module's parse() method:
+
+For example: 'query=string' or {'query': 'string'}
+
+hash:The hash property consists of the "fragment" portion of the URL including the leading ASCII hash (#) character.
+For example: '#hash'
