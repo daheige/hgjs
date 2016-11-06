@@ -1,0 +1,80 @@
+fs模块
+    异步读取文件内容
+    fs.readFile(cur_path + "test.txt", "utf-8", function(err, data) {
+        if (err) res.end("read File error");
+        res.write(data); //写入内容到页面中
+        res.end(); //结束该次请求响应
+    });
+    异步创建文件目录fs.mkdir()
+
+    判断文件是否存在fs.exists()
+        fs.exists("./mytest",function(exist){});//第二个是回调函数
+        demo:
+            var cur_path = "./";
+            fs.exists(cur_path+"mytest",function(exist){ //判断文件是否存在
+                if(exist) res.end("对不起，文件已经存在");
+            });
+            fs.mkdir(cur_path+"mytest",755,function(err){ //第二个参数可以指定文件目录的权限默认0777
+                    if(err) res.end("创建文件失败");
+                    res.end("创建文件成功");
+            });
+    fs.rmdir()用于删除空目录
+    fs.readdir()读取目录，接受两个参数
+
+    fs.stat查看文件或目录基本信息
+        { dev: 1016010631, //文件或目录所在设备id
+          mode: 33206, //权限标志
+          nlink: 1,//文件或目录硬链接数量
+          uid: 0,//文件拥有者的用户id
+          gid: 0,//所有者组的id
+          rdev: 0,
+          blksize: undefined,
+          ino: 5066549580865695, //文件或者目录索引编号
+          size: 706, //文件或目录大小 字节数 bit单位
+          blocks: undefined,
+          atime: 2016-11-06T05:18:21.422Z, //访问时间
+          mtime: 2016-11-06T05:18:21.424Z,//修改时间
+          ctime: 2016-11-06T05:18:21.431Z,//创建时间
+          birthtime: 2016-11-06T04:57:57.893Z }
+          //在stat上面有一些方法isFile(),isDirectory()等等
+          demo:fs.stat("./fs_test.js",function(err,stat){
+                    if(err) {
+                        console.log(err);
+                        res.end();
+                    }
+                    console.log(stat);
+                    //在stat上面有一些方法isFile(),isDirectory()等等
+                    res.write("是否是一个文件："+stat.isFile());
+                    res.write("文件大小："+stat.size);
+                    res.end("ok");
+            });
+    其他的api
+        fs.open(path, flags[, mode], callback) 在fs.open()方法打开一个文件，可以用write,writeSync方法，从一个缓寸区中读取数据，并且可以从指定的位置写入数据。
+
+        fs.writeFile()写入数据
+            file <String> | <Buffer> | <Integer> filename or file descriptor
+            data <String> | <Buffer>
+            options <Object> | <String>
+            encoding <String> | <Null> default = 'utf8'
+            mode <Integer> default = 0o666
+            flag <String> default = 'w'
+            callback <Function>
+
+        fs.unlink()删除文件
+            fs.unlink(path, callback)#
+            Added in: v0.0.2
+            path <String> | <Buffer>
+            callback <Function>
+        fs.rename()重新命名文件，回调函数参数为err
+            fs.rename(oldPath, newPath, callback)#
+            Added in: v0.0.2
+            oldPath <String> | <Buffer>
+            newPath <String> | <Buffer>
+            callback <Function>
+            Asynchronous rename(2). No arguments other than a possible exception are given to the completion callback.
+
+
+
+
+
+
