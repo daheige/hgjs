@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件嵌套</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="react-0.13.0/build/react.js"></script>
+    <script src="react-0.13.0/build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+    // 创建一个容器
+    var MessageBox = React.createClass(
+        {
+            getDefaultProps : function(){
+                return {
+                    title : '我是一个顶层的title'
+                }
+            },
+            //getInitialState 得到组件的状态是一个属性
+            getInitialState : function(){
+                return {
+                    is_display : true,
+                    clickcount : 0,
+                    titleMessage : this.props.title,
+                    subMess : [
+                        'heige:我会板砖',
+                        'wuxin:我是大黑哥',
+                        'heige；我正在学习reactjs',
+                        'wuxin:hello,all'
+                    ]
+                }
+            },
+            render: function() {
+                //{}模板渲染符
+                //<SubMessBox message={this.state.subMess}/>
+                return (
+                   <div>
+                        <h1>hello react,daheige{this.state.titleMessage}</h1>
+                        <SubMessBox message={this.state.subMess}/>
+                        <SubMessBox />
+                   </div>
+                );
+            }
+        } 
+    );
+    var SubMessBox = React.createClass({
+        getDefaultProps : function(){
+            return {
+                message : ['默认的子消息体']
+            }
+        },
+        render : function(){
+            var mess = [];
+            console.log(this.props);
+            this.props.message.forEach(function(msg,index){
+                mess.push(<p key={index}>{msg}</p>);
+            });
+            //嵌套FooterBox
+            return (
+                    <div>
+                        {mess}
+                        <FooterBox/>
+                    </div>
+                );
+        }
+    });
+    //再定义一个组件
+    var FooterBox = React.createClass({
+        render : function(){
+            return (
+                <small>this is footer</small>
+                );
+        }
+    });
+    //render渲染，第一个是盒子元素，第二个是存放的容器，第三个参数是一个回调函数
+    //再app中渲染
+    var pagetitle = "我是来自顶层title";
+    React.render(
+        <MessageBox title={pagetitle}/>,document.getElementById('app'),
+            function(){
+                console.log('load all')
+            }
+        );
+    </script>
+</body>
+</html>

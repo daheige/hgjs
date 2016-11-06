@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>reactjs test</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="react-0.13.0/build/react.js"></script>
+    <script src="react-0.13.0/build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+    // 创建一个容器
+    var MessageBox = React.createClass(
+        {
+            render: function() {
+                return (
+                    <h1 onClick={this.alertMe}>hello react,daheige</h1>
+                );
+            },
+            alertMe : function(){
+                alert('i am be click')
+            }
+        } 
+    );
+    //render渲染，第一个是盒子元素，第二个是存放的容器，第三个参数是一个回调函数
+    React.render(
+        <MessageBox/>,document.getElementById('app'),
+            function(){
+                console.log('load all')
+            }
+        );
+    </script>
+</body>
+</html>

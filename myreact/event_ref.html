@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件嵌套</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="react-0.13.0/build/react.js"></script>
+    <script src="react-0.13.0/build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+    // 创建一个容器
+    var MessageBox = React.createClass(
+        {
+            //getInitialState 得到组件的状态是一个属性
+            getInitialState : function(){
+                return {
+                    inputValue : 'please input your info',
+                    selectValue : 'A',
+                    textAreaValue : 'this is textarea...',
+                    radioValue : 'B',
+                    checkValues : [],
+                }
+            },
+            handdleSelect : function(e){
+                this.setState({
+                    selectValue : e.target.value
+                });
+            },
+            handdleRadio : function(e){
+                this.setState({
+                    radioValue : e.target.value
+                });
+            },
+            handdleCheckBox : function(e){
+                var checkValues = this.state.checkValues.slice(0);
+                var newValue = e.target.value;
+                var index = checkValues.indexOf(newValue);//出现的位置
+                if(index == -1){
+                    checkValues.push(newValue);
+                }else{
+                    checkValues.slice(index,1);
+                }
+                this.setState({
+                    checkValues : checkValues
+                });
+            },
+            handdleSubmit : function(e){
+                e.preventDefault();
+                // console.log(this.refs['goodsname']);
+                // getDOMNode 直接获取到组件的 DOM 节点
+                console.log(this.refs['goodsname'].getDOMNode().value);//获取元素的值
+                //React.findDOMNode(this.refs.goodsname) //查找dom
+                console.log(React.findDOMNode(this.refs['goodsname']).value);
+                var formData ={
+                    input : this.refs['goodsname'].getDOMNode().value,
+                    select : this.refs['goodsBand'].getDOMNode().value,
+                    text : this.refs['goodsInfo'].getDOMNode().value,
+                    checkValues : this.state.checkValues,
+                    checkRadio : this.state.radioValue
+                }
+                //对于单选按钮和复选按钮不建议用ref
+                console.log(formData);
+                this.refs['goodsRadio'].say();
+
+
+
+            },
+            render: function() {
+                return (
+                    <form onSubmit={this.handdleSubmit}>
+                    <input type="text" name="goodsname" ref="goodsname" defaultValue={this.state.inputValue}/><br/>
+                    <select value={this.state.selectValue} onChange={this.handdleSelect} ref="goodsBand">
+                        <option value="A">a</option>
+                        <option value="B">b</option>
+                        <option value="C">c</option>
+                        <option value="D">d</option>
+                        <option value="E">e</option>
+                    </select>
+                    <p>单选按钮</p>
+                    {/*
+                    默认选择defaultChecked
+                     */}
+                    <CheckRadio ref="goodsRadio" say={this.say} handdleRadio={this.handdleRadio}/>
+                    <p>复选按钮</p>
+                    <MyBox handdleCheckBox={this.handdleCheckBox}/>
+                    <br/>
+                    {/*如果value设置为this.state.textAreaValue 是无法改变默认值*/}
+                    <textarea name="info" defaultValue={this.state.textAreaValue} ref="goodsInfo"/>
+                    <input type="submit" value="提交"/>
+                    </form>
+                );
+            }
+        } 
+    );
+    //嵌套的子类需要首字母大写
+   var CheckRadio = React.createClass({
+        //定义组件的执行方法
+        say : function(){
+            alert(1);
+        },
+        render : function(){
+            return (<span>
+                    <input onChange={this.props.handdleRadio} type="radio" name="groupRadio" value="a" defaultChecked />A
+                    <input onChange={this.props.handdleRadio} type="radio" name="groupRadio" value="b"/>B
+                    <input onChange={this.props.handdleRadio} type="radio" name="groupRadio" value="c"/>C
+                </span>);
+
+        }
+   });
+    var MyBox = React.createClass({
+        render : function(){
+            return (<span>
+                    <input onChange={this.props.handdleCheckBox} type="checkbox" value="abc" name="groupfav"/>abc
+                    <input onChange={this.props.handdleCheckBox} type="checkbox" value="efg" name="groupfav" defaultChecked />efg
+                    <input onChange={this.props.handdleCheckBox} type="checkbox" value="egg" name="groupfav"/>egg
+                    <input onChange={this.props.handdleCheckBox} type="checkbox" value="dog" name="groupfav"/>dog
+                    <input onChange={this.props.handdleCheckBox} type="checkbox" value="mail" name="groupfav"/>mail
+                    </span>);
+
+        }
+   });
+    //render渲染，第一个是盒子元素，第二个是存放的容器，第三个参数是一个回调函数
+    //再app中渲染
+    //渲染的时候会返回一个对象
+    var messbox = React.render(
+        <MessageBox/>,document.getElementById('app'),
+            function(){
+                console.log('load all')
+            }
+        );
+    //messbox.setState({is_display:true,titleMessage:'fefefe'});可以改变状态，但是生效用
+    //messbox.forceUpdate();生效
+    </script>
+    <!-- <p></p> -->
+</body>
+</html>

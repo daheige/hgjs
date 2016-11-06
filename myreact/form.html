@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>reactjs test</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="react-0.13.0/build/react.js"></script>
+    <script src="react-0.13.0/build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+    // 创建一个容器
+    var MessageBox = React.createClass(
+        {
+            render: function() {
+                //返回多个标签必须被包裹
+                //表单中可以设置默认值defaultValue,react为了统一设置值，默认值就采用defaultValue
+                //createElement创建元素，第一个参数li，第二个参数是属性，第三个参数是内容
+                var child = React.createElement('li', null, 'Text Content');
+                var root = React.createElement('ul', { className: 'my-list' }, child);
+                
+
+                return (
+                    <div>
+                        <h1 onClick={this.alertMe}>hello react,daheige</h1>
+                        <input type="button" value="点击我" onClick={this.alertMe}/><br/>
+                        <input type="text" defaultValue="Hello!" placeholder="请输入用户名" />
+                        <select defaultValue="C">
+                          <option value="A">Apple</option>
+                          <option value="B">Banana</option>
+                          <option value="C">Cranberry</option>
+                        </select>
+                        <br/>
+                        <textarea name="description" value="This is a description." />
+                        一次选中多个下拉列表
+                         <select defaultValue="['B','C']" multiple={true}>
+                          <option value="A">Apple</option>
+                          <option value="B">Banana</option>
+                          <option value="C">Cranberry</option>
+                        </select>
+                        {root}
+                    </div>
+                );
+            },
+            alertMe : function(){
+                alert('i am be click')
+            }
+        } 
+    );
+    //render渲染，第一个是盒子元素，第二个是存放的容器，第三个参数是一个回调函数
+    React.render(
+        <MessageBox/>,document.getElementById('app'),
+            function(){
+                console.log('load all')
+            }
+        );
+    </script>
+</body>
+</html>

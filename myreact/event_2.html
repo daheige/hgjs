@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件嵌套</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="react-0.13.0/build/react.js"></script>
+    <script src="react-0.13.0/build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+    // 创建一个容器
+    var MessageBox = React.createClass(
+        {
+            //getInitialState 得到组件的状态是一个属性
+            getInitialState : function(){
+                return {
+                    inputValue : 'please input your info',
+                    selectValue : 'A',
+                    textAreaValue : 'this is textarea...',
+                    radioValue : 'B'
+                }
+            },
+            handdleInput : function(e){
+                this.setState({
+                    inputValue : e.target.value
+                });
+            },
+            handdleSelect : function(e){
+                this.setState({
+                    selectValue : e.target.value
+                });
+            },
+            handdleSubmit : function(e){
+                e.preventDefault();
+            },
+            render: function() {
+                return (
+                    <form onSubmit={this.handdleSubmit}>
+                    <input type="text" value={this.state.inputValue} onChange={this.handdleInput}/><br/>
+                    <select value={this.state.selectValue} onChange={this.handdleSelect}>
+                        <option value="A">a</option>
+                        <option value="B">b</option>
+                        <option value="C">c</option>
+                        <option value="D">d</option>
+                        <option value="E">e</option>
+                    </select>
+                    <p>单选按钮</p>
+                    {/*
+                    默认选择defaultChecked
+                     */}
+                    <input type="radio" name="groupRadio" value="a" defaultChecked />A
+                    <input type="radio" name="groupRadio" value="b"/>B
+                    <input type="radio" name="groupRadio" value="c"/>C
+                    <p>复选按钮</p>
+                    <input type="checkbox" name="groupfav"/>abc
+                    <input type="checkbox" name="groupfav" defaultChecked />efg
+                    <input type="checkbox" name="groupfav"/>egg
+                    <input type="checkbox" name="groupfav"/>dog
+                    <input type="checkbox" name="groupfav"/>mail
+                    <br/>
+                    <textarea name="info" value={this.state.textAreaValue}/>
+                    <input type="submit" value="提交"/>
+                    </form>
+                );
+            }
+        } 
+    );
+   
+    //render渲染，第一个是盒子元素，第二个是存放的容器，第三个参数是一个回调函数
+    //再app中渲染
+    //渲染的时候会返回一个对象
+    var messbox = React.render(
+        <MessageBox/>,document.getElementById('app'),
+            function(){
+                console.log('load all')
+            }
+        );
+    //messbox.setState({is_display:true,titleMessage:'fefefe'});可以改变状态，但是生效用
+    //messbox.forceUpdate();生效
+    </script>
+    <!-- <p></p> -->
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件嵌套</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="react-0.13.0/build/react.js"></script>
+    <script src="react-0.13.0/build/JSXTransformer.js"></script>
+    <script type="text/jsx">
+    // 创建一个容器
+    var MessageBox = React.createClass(
+        {
+            //getInitialState 得到组件的状态是一个属性
+            getInitialState : function(){
+                return {
+                    is_display : true,
+                    clickcount : 0,
+                    titleMessage :'你好，我是一个状态'
+                }
+            },
+            checkcount : function(){
+                //不能直接改变state上面的值而是用setState
+                this.setState({
+                    clickcount : this.state.clickcount+1
+                });
+            },
+            render: function() {
+                var stateObj = {
+                    //state自动会调用初始化的状态,更新style样式
+                    display: this.state.is_display ? 'block' : 'none',
+                }
+                //{}模板渲染符
+                return (
+                   <div>
+                        <h1 style={stateObj}>{this.state.titleMessage}</h1>
+                        <button type="button" onClick={this.checkcount}>点击我</button>
+                        <p>你一共点击了：{this.state.clickcount}次</p>
+                   </div>
+                );
+            }
+        } 
+    );
+   
+    //render渲染，第一个是盒子元素，第二个是存放的容器，第三个参数是一个回调函数
+    //再app中渲染
+    //渲染的时候会返回一个对象
+    var messbox = React.render(
+        <MessageBox/>,document.getElementById('app'),
+            function(){
+                console.log('load all')
+            }
+        );
+    //messbox.setState({is_display:true,titleMessage:'fefefe'});可以改变状态，但是生效用
+    //messbox.forceUpdate();生效
+    </script>
+</body>
+</html>
