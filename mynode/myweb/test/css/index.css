@@ -1,0 +1,8 @@
+html{
+    font-size: 100px;
+    padding: 0;
+    margin: 0;
+}
+#mytest,p{
+    font-size: 0.16rem;
+}
