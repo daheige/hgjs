@@ -1,0 +1,55 @@
+path模块
+    path.normalize()将\\转换为\，将//转换为/(根据操作系统来转换，window下是\\，linux是/)
+        path.normalize('/foo/bar//baz/asdf/quux/..')
+        // returns '/foo/bar/baz/asdf'
+        path.normalize("/da//ddd/fe"); //'\\da\\ddd\\fe'
+
+    path.join(path1,path2,path3...) 将多个字符串路径合并，参数必须是字符串路径
+        path.join('/foo', 'bar', 'baz/asdf', 'quux', '..')
+        // returns '/foo/bar/baz/asdf'
+        在window下，分割符号是\\
+        > path.join('/da/my','a','b')
+        '\\da\\my\\a\\b'
+    path.dirname(path) 返回路径中的目录名
+        path.dirname('/foo/bar/baz/asdf/quux')
+        > path.dirname('/foo/bar/baz/asdf/quux')
+        '/foo/bar/baz/asdf'
+        > path.dirname('/da/dafefefe/my.txt')
+        '/da/dafefefe'
+    path.basename(path,extname) 获取一个路径中的文件名
+        path.basename('/foo/bar/baz/asdf/quux.html')
+        // returns 'quux.html'
+
+        path.basename('/foo/bar/baz/asdf/quux.html', '.html') //第二个参数过滤指定后缀名
+        // returns 'quux'
+    path.sep 获取操作系统的分割符号，linux是/，window是\\
+        比如我们可以按照分割符，分割指定字符串
+        'foo/bar/baz'.split(path.sep) 在linux下是 [ 'foo', 'bar', 'baz' ]
+
+    其他api
+        path.parse('/home/user/dir/file.txt') 格式化路径
+            demo
+            {
+               root : "/",
+               dir : "/home/user/dir",
+               base : "file.txt",
+               ext : ".txt",
+               name : "file"
+            }
+            > path.parse("/d/my/fefe/t.html")
+            { root: '/',
+              dir: '/d/my/fefe',
+              base: 't.html',
+              ext: '.html',
+              name: 't' }
+        path.format()将一个path obj格式化为一个完整的路径
+            path.format({
+              dir: '/home/user/dir',
+              base: 'file.txt'
+            });
+            // linux returns '/home/user/dir/file.txt'
+
+
+
+
+
