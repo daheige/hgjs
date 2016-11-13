@@ -7,7 +7,7 @@ var server = http.createServer(function(req, res) {
     //解析用户的url地址为对象
     var pathname = url.parse(req.url).pathname;
     if(pathname == "/favicon.ico") res.end();
-    if(pathname == "/") pathname = "/index.html";
+    if(pathname == "/" || pathname.indexOf(".") == -1) pathname = "/index.html";
     //读取静态文件
     var extname = path.extname(pathname); //得到拓展名
     fs.readFile("./myweb" + pathname, function(err, data) {
