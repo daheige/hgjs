@@ -1,2 +1,17 @@
 模块的概念
 导入模块使用import，用require来导入模块包
+
+在nodejs中，一个js文件中定义的变量，函数，都在这个文件内有效，当需要从该js文件外部引用这些变量，函数时候，需用exports对象进行暴露，使用者需用require()引入js文件。在使用的时候只需要一次，相当于引入顶层变量，所有的变量和函数，挂载这个顶层变量中。
+foo.js
+var s = 13;
+var info = "我是提示信息";
+exports.s = s;
+exports.info = info; //向外暴露变量或者函数
+
+test.js
+var foo = require("./mod_test/foo"); //foo作为一个“顶部命名空间"
+console.log(foo.s);
+console.log(foo.info);
+
+向外暴露一些类，可以把包构造成一个对象，然后导出来。
+对一个类用module.exports = Person;//类名 在外部可以用new关键字来实例化一个对象
