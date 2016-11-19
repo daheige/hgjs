@@ -17,4 +17,5 @@ per.sayName();
 
 //导入的是一个包
 console.log("包中的变量",bar.msg);
+console.log(bar.my_bar);
 
