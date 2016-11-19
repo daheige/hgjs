@@ -38,3 +38,5 @@ console.log(foo.info);
 //导入的是一个包
 var bar = require("./bar");
 console.log("包中的变量",bar.msg);
+
+一个js文件就是一个模块，导入模块的时，系统模块不需要加路径，其他的模块可以指定路径，采用__dirname,__filename来配合使用。
