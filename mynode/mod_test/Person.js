@@ -5,7 +5,7 @@
  *Date  : 2016/11/13
  *Time  : 23:32
  */
-function Person(name, age, sex) {
+function Person(name, age, sex = 1) {
     this.name = name;
     this.age  = age;
     this.sex  = sex;

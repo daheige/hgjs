@@ -15,3 +15,31 @@ console.log(foo.info);
 
 向外暴露一些类，可以把包构造成一个对象，然后导出来。
 对一个类用module.exports = Person;//类名 在外部可以用new关键字来实例化一个对象
+
+没有指定路径，是一个相对路径。
+比如：var foo = require("foo");
+现在当前的文件夹中查找，然后到父文件中查找，在项目的node_modules中查找，一直查找到根环境的node_modules中，逐级查找。
+
+模块文件夹：
+如果导入的是一个文件夹，就会默认去查找文件夹中的index.js，如果找不到就往外面找。（我们可以指定包的初始化文件，用package.json指定）。我们可以用npm init在bar文件中生成一个package.json文件。
+{
+  "name": "bar",
+  "version": "1.0.0",
+  "description": "this is test bar package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "daheige",
+  "license": "BSD"
+}
+通过用main指定包的初始化文件
+使用方式：
+//导入的是一个包
+var bar = require("./bar");
+console.log("包中的变量",bar.msg);
+
+
+
+
+
