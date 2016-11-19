@@ -1,2 +1,9 @@
 关于npm
+通过npm install packname 这样的方式可以下载包，如果加上-g参数表示全局安装。
+查找包，https://www.npmjs.com 包名是唯一的。
+demo:
+$ npm install -g silly-datetime
+
+
+
 

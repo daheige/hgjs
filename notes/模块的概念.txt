@@ -38,8 +38,3 @@ console.log(foo.info);
 //导入的是一个包
 var bar = require("./bar");
 console.log("包中的变量",bar.msg);
-
-
-
-
-
