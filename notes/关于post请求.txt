@@ -1,0 +1,16 @@
+关于post请求
+req.method 获取提交的方式 //POST or GET
+对请求进行事件监听
+    req.addListener("data",function(chuck){
+        postdata += chuck;
+    });
+    req.addListener("end", function(){
+        //转换为字符串后，转为对象(对接受到的参数进行解码)
+        //采用query string模块将参数转换为对象
+        var obj = querystring.parse(postdata.toString(),null, null,{ decodeURIComponent: decodeURIComponent });
+        res.writeHead(200,{"Content-Type":"text/html"});
+        res.end("提交的数据成功"+obj.username); //结束该次请求响应 //提交的数据成功大黑哥
+
+    });
+
+对于post数据，可以用querystring模块中的querystring.parse(data)将数据转换为对象
