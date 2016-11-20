@@ -36,7 +36,9 @@ http.createServer(function(req, res) {
 
                 //对文件重新命名
                 var date = new Date();
-                var ms = Date.parse(date); //计算当前时间与1970年1月1日午夜相差的毫秒数 赋值给ms以确保文件名无重复。
+                // var ms = Date.parse(date);//计算当前时间与1970年1月1日午夜相差的毫秒数 赋值给ms以确保文件名无重复。
+                var rnd = Math.floor(Math.random()*1000);
+                var ms = ''+date.getFullYear()+(date.getMonth()+1)+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds()+"_"+rnd;
                 // console.log(upload_dir + ms +"." + String(types[types.length-1]));
                 fs.rename(files.upload.path, upload_dir + ms + file_ext);
             } else {
@@ -48,6 +50,7 @@ http.createServer(function(req, res) {
                 'content-type': 'text/plain'
             });
             res.write('received upload:\n\n');
+            //调试信息
             // res.end(util.inspect({
             //     fields: fields,
             //     files: files
