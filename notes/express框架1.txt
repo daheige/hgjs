@@ -1,0 +1,73 @@
+express框架1
+原生的nodejs开发，存在的问题：
+1、呈递静态页面不方便，要处理每个http请求及各种跳转问题。
+2、路由规则处理比较繁琐，需要更多地正则和字符串过滤函数。
+3、不能集中精力写业务逻辑。
+
+express在nodejs和服务器之间充当桥梁。
+是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。
+中文网站：http://www.expressjs.com.cn/
+
+npm install -g express 全局安装
+对于4.x版本安装 npm install -g express-generator
+
+express特点：
+1、路由能力
+2、静态文件处理
+3、模板引擎配合，直观
+
+路由能力：
+var express = require("express"); //导入express框架
+var app     = express();
+
+app.get("/", function(req, res) {
+    res.send("daheige hello");
+});
+
+app.get("/test", function(req, res) {
+    res.send("这是一个测试页面");
+});
+
+// 支持正则路由
+app.get(/\/stu\/([1-9]\d*)/, function(req, res) {
+    var params = req.params; //接收匹配路由中的所有参数
+    console.log(params);
+    var stu_no = params[0];
+    res.send("你提交的学号是：" + stu_no); //发送信息到前台
+});
+
+//静态路由和动态路由结合
+app.get('/tea/:num', function(req, res) {
+    res.send("编号是：" + req.params.num);
+});
+//监听3000端口
+app.listen(3000);
+
+静态文件服务：
+var express = require("express");
+var app = express();
+
+app.use(express.static(__dirname+"/public"));//A route will match any path
+//http://localhost:8080/te/one.html就可以直接访问到public下的静态文件，具有缓存静态文件作用
+
+app.get("/test",function(req,res){
+    res.send("test ok");
+});
+
+app.listen(8080);
+
+模板引擎直观：
+var express = require("express");
+var app     = express(); //express() 是一个由 express 模块导出的入口（top-level）函数
+
+app.set("views", __dirname + "/views"); //设置视图的位置
+app.set("view engine", "ejs"); //设置模板引擎
+
+app.get("/mytest", function(req, res) {
+    //通过res.render渲染数据到模板中
+    res.render("mytest", {
+        'news': ['123', 'daheige']
+    })
+});
+
+app.listen(3000);
