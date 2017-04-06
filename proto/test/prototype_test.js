@@ -41,7 +41,7 @@ Dict.prototype = { //定义原型上的方法
         if(flag == 'asc'){
             arr.sort(function(a,b){
                 return a < b;
-            });;
+            });
         }else if(flag == 'desc') {
             arr.sort(function(a,b){
                 return a > b;
