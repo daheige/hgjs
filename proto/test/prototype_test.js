@@ -69,6 +69,7 @@ Dict.prototype 包含了2个属性，一个是constructor ，另外一个是__pr
 当我们访问一个对象的属性 时，如果这个对象内部不存在这个属性
 那么他就会去__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样 一直找下去。*/
 
+console.log(Dict.prototype.constructor == Dict);//true
 console.log(hgdict.__proto__ == Dict.prototype);//true
 console.log(hgdict.prototype); //undefined 在实例上没有prototype属性，进一步证明了prototype是构造函数的一个属性，也是Object上的一个属性
 console.log(Object.prototype);//Object.prototype的值是一个空对象{}
